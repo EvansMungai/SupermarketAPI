@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Supermarket.API.Features.Authentication.Models;
 using Supermarket.API.Features.BranchManagement.Models;
 using Supermarket.API.Features.DrinkManagement.Models;
@@ -10,11 +11,12 @@ namespace Supermarket.API.Data.Infrastructure;
 
 public partial class SupermarketContext : DbContext
 {
+    private readonly string _connectionString;
     public SupermarketContext()
     {
     }
 
-    public SupermarketContext(DbContextOptions<SupermarketContext> options)
+    public SupermarketContext(DbContextOptions<SupermarketContext> options, IConfiguration configuration)
         : base(options)
     {
     }
@@ -30,9 +32,6 @@ public partial class SupermarketContext : DbContext
     public virtual DbSet<Sale> Sales { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseMySql("name=DefaultConnection", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.2.0-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
