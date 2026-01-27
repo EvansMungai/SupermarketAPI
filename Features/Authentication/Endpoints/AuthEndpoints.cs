@@ -50,8 +50,8 @@ public static class AuthEndpoints
                                                        [FromBody] CreateUserRequest request) =>
         {
             // Extra check: current user must be Admin
-            if (!user.IsInRole("Admin"))
-                return Results.Forbid();
+            //if (!user.IsInRole("Admin"))
+            //    return Results.Forbid();
 
             try
             {
