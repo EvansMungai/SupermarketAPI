@@ -3,6 +3,7 @@ using Supermarket.API.Extensions.ServiceHandlers;
 using Supermarket.API.Features.Authentication.Services;
 using Supermarket.API.Features.PaymentManagement.Models.Common;
 using Supermarket.API.Features.PaymentManagement.Services;
+using Supermarket.API.Features.PaymentManagement.Services.Callback;
 
 namespace Supermarket.API.Extensions;
 
@@ -48,6 +49,9 @@ public static class ServiceRegistration
 
         // Configure Cors
         services.ConfigureCors();
+
+        // Register callback handler
+        services.AddScoped<IMpesaCallbackHandler, MpesaCallbackHandler>();
 
         // Register application services via reflection
         services.RegisterFeatureServices();
