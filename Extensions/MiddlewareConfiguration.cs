@@ -5,6 +5,7 @@ public static class MiddlewareConfiguration
     public static WebApplication ConfigureMiddleware(this WebApplication app)
     {
         app.UseHttpsRedirection();
+        app.UseCors();
         app.UseAuthentication();
         app.UseAuthorization();
 
