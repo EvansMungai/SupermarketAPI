@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Supermarket.API.Features.PaymentManagement.Services.Callback;
 using Supermarket.API.Features.PaymentManagement.Services.Payment;
 
@@ -19,7 +20,7 @@ public static class PaymentEndpoints
         group.MapGet("/{id}", async (int id, IPaymentService service) =>
             await service.GetPaymentByIdAsync(id));
 
-        group.MapPost("/callback", async (IMpesaCallbackHandler service, HttpRequest request) =>
+        group.MapPost("/callback", async ([FromServices] IMpesaCallbackHandler service, HttpRequest request) =>
             await service.HandleAsync(request));
     }
 }
