@@ -13,38 +13,36 @@ public class ReportRepository : IReportRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<SalesReport>> GetSalesByBranchAsync(DateTime start, DateTime end)
+    public async Task<IEnumerable<SalesReport>> GetSalesByBranchAsync(int branchId)
     {
         return await _context.Sales
-            .Where(s => s.CreatedAt >= start && s.CreatedAt <= end)
+            .Where(s => s.BranchId == branchId)
             .GroupBy(s => s.Branch!.BranchName)
             .Select(g => new SalesReport
             {
-                BranchName = g.Key,
+                BranchId = branchId,
                 TotalRevenue = g.Sum(s => s.TotalAmount),
                 ReportDate = DateTime.UtcNow
             })
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<SalesReport>> GetSalesByDrinkTypeAsync(DateTime start, DateTime end)
+    public async Task<IEnumerable<SalesReport>> GetSalesByDrinkTypeAsync(int drinkId)
     {
         return await _context.Sales
-            .Where(s => s.CreatedAt >= start && s.CreatedAt <= end)
-            .GroupBy(s => s.Drink!.DrinkName) // DrinkName instead of Category
+            .GroupBy(s => s.DrinkId == drinkId) 
             .Select(g => new SalesReport
             {
-                DrinkCategory = g.Key,
+                DrinkId = drinkId,
                 TotalRevenue = g.Sum(s => s.TotalAmount),
                 ReportDate = DateTime.UtcNow
             })
             .ToListAsync();
     }
 
-    public async Task<decimal> GetTotalRevenueAsync(DateTime start, DateTime end)
+    public async Task<decimal> GetTotalRevenueAsync()
     {
         return await _context.Sales
-            .Where(s => s.CreatedAt >= start && s.CreatedAt <= end)
             .SumAsync(s => s.TotalAmount);
     }
 }

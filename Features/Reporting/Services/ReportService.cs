@@ -12,21 +12,21 @@ public class ReportService
         _repository = repository;
     }
 
-    public async Task<IResult> GetSalesByBranchAsync(DateTime start, DateTime end)
+    public async Task<IResult> GetSalesByBranchAsync(int branchId)
     {
-        var report = await _repository.GetSalesByBranchAsync(start, end);
+        var report = await _repository.GetSalesByBranchAsync(branchId);
         return report == null ? Results.NotFound("No data found for the given criteria") : Results.Ok(report);
     }
 
-    public async Task<IResult> GetSalesByDrinkTypeAsync(DateTime start, DateTime end)
+    public async Task<IResult> GetSalesByDrinkTypeAsync(int drinkdId)
     {
-        var report = await _repository.GetSalesByDrinkTypeAsync(start, end);
+        var report = await _repository.GetSalesByDrinkTypeAsync(drinkdId);
         return report == null ? Results.NotFound("No data found for the given criteria") : Results.Ok(report);
     }
 
-    public async Task<IResult> GetTotalRevenueAsync(DateTime start, DateTime end)
+    public async Task<IResult> GetTotalRevenueAsync()
     {
-        decimal revenue = await _repository.GetTotalRevenueAsync(start, end);
+        decimal revenue = await _repository.GetTotalRevenueAsync();
         return Results.Ok(new { TotalRevenue = revenue });
     }
 }

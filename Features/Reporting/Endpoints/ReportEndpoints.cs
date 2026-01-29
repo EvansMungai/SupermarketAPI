@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using Supermarket.API.Features.Reporting.Services;
 
 namespace Supermarket.API.Features.Reporting.Endpoints;
@@ -10,25 +9,21 @@ public static class ReportEndpoints
         var group = app.MapGroup("/api/reports")
                        .WithTags("Reports");
 
-        group.MapGet("/sales-by-branch", async (DateTime? start, DateTime? end, ReportService service) =>
+        group.MapGet("/sales-by-branch", async (int branchId, ReportService service) =>
         {
-            var startDate = start ?? DateTime.MinValue;
-            var endDate = end ?? DateTime.MaxValue;
-            return await service.GetSalesByBranchAsync(startDate, endDate);
+            return await service.GetSalesByBranchAsync(branchId);
         });
 
-        group.MapGet("/sales-by-drink", async (DateTime? start, DateTime? end, ReportService service) =>
+        group.MapGet("/sales-by-drink", async (int drinkId, ReportService service) =>
         {
-            var startDate = start ?? DateTime.MinValue;
-            var endDate = end ?? DateTime.MaxValue;
-            return await service.GetSalesByDrinkTypeAsync(startDate, endDate);
+
+            return await service.GetSalesByDrinkTypeAsync(drinkId);
         });
 
-        group.MapGet("/total-revenue", async (DateTime? start, DateTime? end, ReportService service) =>
+        group.MapGet("/total-revenue", async (ReportService service) =>
         {
-            var startDate = start ?? DateTime.MinValue;
-            var endDate = end ?? DateTime.MaxValue;
-            return await service.GetTotalRevenueAsync(startDate, endDate);
+
+            return await service.GetTotalRevenueAsync();
         });
     }
 }
