@@ -45,7 +45,7 @@ public class AuthenticationService : IAuthenticationService
         return await _context.Users.FirstOrDefaultAsync(u => u.UserName == username);
     }
 
-    public async Task<string?> LoginAsync(string username, string password)
+    public async Task<object?> LoginAsync(string username, string password)
     {
         var user = await GetUserByUsernameAsync(username);
         if (user == null) return null;
@@ -68,7 +68,11 @@ public class AuthenticationService : IAuthenticationService
             CookieAuthenticationDefaults.AuthenticationScheme,
             principal);
 
-        return user.UserName;
+        return new
+        {
+            username = user.UserName,
+            role = user.Role
+        };
     }
 
     public async Task LogoutAsync()
