@@ -46,6 +46,9 @@ public static class ServiceRegistration
         // Register Memory Cache
         services.AddMemoryCache();
 
+        // Configure Cors
+        services.ConfigureCors();
+
         // Register application services via reflection
         services.RegisterFeatureServices();
 

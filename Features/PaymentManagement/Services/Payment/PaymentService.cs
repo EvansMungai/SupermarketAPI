@@ -66,9 +66,9 @@ public class PaymentService : IPaymentService
             Timestamp = timestamp,
             TransactionType = MpesaTransactionType.CustomerPayBillOnline,
             Amount = sale.TotalAmount,
-            PartyA = "254708374149",
+            PartyA = sale.PhoneNumber,
             PartyB = _mpesaConfig.BusinessShortCode,
-            PhoneNumber = "254708374149",
+            PhoneNumber = sale.PhoneNumber,
             CallBackUrl = _mpesaConfig.CallbackUri,
             AccountReference = "Supermarket LTD",
             TransactionDescription = $"Payment for order {sale.SaleId}"

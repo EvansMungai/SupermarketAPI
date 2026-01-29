@@ -84,7 +84,6 @@ public class SaleService
             _memoryCache.Set($"payment-{stk.CheckoutRequestID}", payment.PaymentId, TimeSpan.FromMinutes(15)); 
             return Results.Ok(new { SaleId = sale.SaleId, PaymentId = payment.PaymentId, CheckoutRequestID = stk.CheckoutRequestID, Amount = total, PhoneNumber = request.PhoneNumber }); 
             
-            return Results.Created($"/api/sales/{sale.SaleId}", sale);
         }
         catch (Exception ex)
         {
