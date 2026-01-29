@@ -24,7 +24,6 @@ public class InventoryRepository : IInventoryRepository
     public async Task<IEnumerable<Inventory>> GetByBranchAsync(int branchId)
     {
         return await _context.Inventories
-            .Include(i => i.Drink)
             .Where(i => i.BranchId == branchId)
             .ToListAsync();
     }
