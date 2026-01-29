@@ -74,7 +74,7 @@ public class PaymentService : IPaymentService
             TransactionDescription = $"Payment for order {sale.SaleId}"
         };
         var payloadJson = JsonConvert.SerializeObject(payload);
-
+        Console.WriteLine($"This is the callback url: {payload.CallBackUrl }");
         string baseUri = SystemEnvironmentUrl.Sandbox;
         string uri = baseUri + "mpesa/stkpush/v1/processrequest";
 

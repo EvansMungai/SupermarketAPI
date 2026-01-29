@@ -58,10 +58,9 @@ public class MpesaApiService : IMpesaApiService
         Console.WriteLine($"Status Code: {response.StatusCode}"); 
         // Read the raw response body
         var responseBody = await response.Content.ReadAsStringAsync();
-        Console.WriteLine($"Response Body: {responseBody}");
+        //Console.WriteLine($"Response Body: {responseBody}");
         //ensure success
         response.EnsureSuccessStatusCode();
-        
         //stringify content
         var resultContent = await response.Content.ReadAsStringAsync();
         //deserialize object

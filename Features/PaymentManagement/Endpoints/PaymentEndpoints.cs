@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-using Supermarket.API.Features.PaymentManagement.Models;
 using Supermarket.API.Features.PaymentManagement.Services.Callback;
 using Supermarket.API.Features.PaymentManagement.Services.Payment;
 
